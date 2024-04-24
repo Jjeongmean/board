@@ -1,5 +1,7 @@
 package com.board.service;
 
+import com.board.entity.Member;
+import com.board.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,7 +44,6 @@ public class MemberService implements UserDetailsService {
         return User.builder()
                 .username(member.getName())
                 .password(member.getPassword())
-                .roles(member.getRole().toString())
                 .build();
     }
 }

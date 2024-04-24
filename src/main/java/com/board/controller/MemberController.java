@@ -1,6 +1,8 @@
 package com.board.controller;
 
+import com.board.dto.MemberFormDto;
 import com.board.entity.Member;
+import com.board.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
