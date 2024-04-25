@@ -18,12 +18,6 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final MemberService memberService;
 
-    @GetMapping("/members/qa") //localhost/members/qa
-    //문의하기
-    public String qa() {
-        return "member/qa"; //qa.html
-    }
-
     //로그인 화면
     @GetMapping(value = "/members/login") //localhost/members/login
     public String loginMember() {

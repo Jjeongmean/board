@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout1}">
+<th:block layout:fragment="css">
+    <style>
+        .error {
+           color: #bd2130;
+        }
+    </style>
+</th:block>
 <div layout:fragment="content">
     <div id="colorlib-page">
         <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
@@ -8,11 +16,12 @@
             <nav id="colorlib-main-menu" role="navigation">
                 <ul>
                     <li class="colorlib-active"><a href="/">Home</a></li>
-                    <li><a href="#">Photography</a></li>
+                    <li><a href="#">Post</a></li>
                     <li><a href="#">Travel</a></li>
                     <li><a href="#">Fashion</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="/members/login" sec:authorize="isAnonymous()">Login</a></li>
+                    <li><a href="/members/logout" sec:authorize="isAuthenticated()">LogOut</a></li>
                 </ul>
             </nav>
 
@@ -34,8 +43,8 @@
                     <div class="col-md-8 text text-center">
                         <div class="img mb-4" style="background-image: url(images/author.jpg);"></div>
                         <div class="desc">
-                            <h2 class="subheading">안녕하세요</h2>
-                            <h1 class="mb-4">제 이름은 캐럿 돼토코죠</h1>
+                            <h2 class="subheading">쎄더넴</h2>
+                            <h1 class="mb-4">제 이름은 캐럿💎</h1>
                             <p class="mb-4">어쩌구저쩌구</p>
                             <p><a href="#" class="btn-custom">더보기 <span class="ion-ios-arrow-forward"></span></a></p>
                         </div>
