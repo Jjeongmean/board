@@ -20,10 +20,10 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(authorize -> authorize
                 //모든 사용자가 로그인(인증) 없이 접근할 수 있도록 설정
                 .requestMatchers("/css/**", "/js/**", "/img/**", "/images/**", "/fonts/**").permitAll()
-                .requestMatchers("/", "/members/**", "/item/**").permitAll() //** : 하위경로
+                .requestMatchers("/", "/members/**", "/list/**").permitAll() //** : 하위경로
                 .requestMatchers("/favicon.ico", "/error").permitAll()
                 //관리자만 접근가능하도록 설정(인가)
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                //.requestMatchers("/admin/**").hasRole("ADMIN")
                 //그 외의 페이지는 모두 로그인(인증)을 해야 한다
                 .anyRequest().authenticated() //CustomAuthenticationEntryPoint 에 있는 commence()메소드를 실행
                 )

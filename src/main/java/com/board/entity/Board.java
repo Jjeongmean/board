@@ -1,12 +1,18 @@
 package com.board.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+
+@Entity
+@Table(name = "board")
+@Getter
+@Setter
+@ToString
 public class Board {
     @Id
     @Column(name = "board_id")
@@ -19,7 +25,9 @@ public class Board {
     private String title;
     private LocalDateTime updateDate;
 
-    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member; //Board가 Member를 참조
 
 
 }
