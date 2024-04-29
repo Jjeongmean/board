@@ -20,6 +20,7 @@ public class BoardFormDto {
 
     private Member member;
 
+    //model mapper 사용
     private static ModelMapper modelMapper = new ModelMapper();
 
     // dto ➡ entity

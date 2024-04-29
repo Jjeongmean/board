@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -21,18 +22,23 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createBoard(@RequestBody BoardFormDto boardFormDto) {
-        // BoardFormDto는 게시물 정보를 포함하는 DTO 객체입니다.
+    public String boardNew (@RequestBody BoardFormDto boardFormDto, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) return "post/list";
+
         try {
-            // BoardService를 통해 게시물을 저장합니다.
-            Board newBoard = boardService.createBoard(boardFormDto);
-            return ResponseEntity.ok("Board created with ID: " + newBoard.getId());
+           boardService.saveBoard(boardFormDto);
         } catch (Exception e) {
-            // 오류가 발생하면 400 상태 코드와 함께 에러 메시지를 반환합니다.
-            return ResponseEntity.badRequest().body("Error creating board: " + e.getMessage());
+           e.printStackTrace();
+           model.addAttribute("errorMessage",
+                   "에러가 발생했습니다.");
+           return "post/list";
         }
+        return "/";
     }
 
+
+    //게시물 리스트
     @GetMapping(value = {"/list", "/list/{page}"})
     public String boardList(Model model, BoardSearchDto boardSearchDto,
                             @PathVariable(value = "page") Optional<Integer> page) {
@@ -47,5 +53,14 @@ public class BoardController {
         model.addAttribute("maxPage", 5);
 
         return "post/list"; // list.html로 반환
+    }
+
+    //게시물 상세 페이지
+    @GetMapping("/detail/{boardId}")
+    public String boardDtl(Model model, @PathVariable("boardId") Long boardId) {
+        BoardService boardFormDto  = boardService;
+        model.addAttribute("board", boardFormDto);
+        return "post/detail";
+
     }
 }

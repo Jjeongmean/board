@@ -31,11 +31,25 @@ public class BoardService {
         return board.getId();
     }
 
+    //불러오기
+    @Transactional(readOnly = true)
+    public BoardFormDto getBoardDtl(Long boardId) {
+        Board board = boardRepository.findById(boardId).orElseThrow(EntityNotFoundException::new);
+
+        BoardFormDto boardFormDto = BoardFormDto.of(board);
+
+        return boardFormDto;
+    }
+
     //글 수정하기
     public Long updateBoard(BoardFormDto boardFormDto) throws Exception {
         // board 엔티티 수정
-        Board board = boardRepository.findBy(boardFormDto.getId())
+        Board board = boardRepository.findById(boardFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
+
+        board.updateBoard(boardFormDto);
+
+        return board.getId();
     }
 
 
@@ -44,4 +58,5 @@ public class BoardService {
         Page<Board> boardPage = boardRepository.getBoardPage(boardSearchDto, pageable);
         return boardPage;
     }
+
 }

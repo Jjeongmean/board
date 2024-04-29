@@ -52,7 +52,7 @@ public class MemberController {
             model.addAttribute("errorMessage", e.getMessage());
             return "member/memberForm";
         }
-        return "redirect:/"; //회원가입 완료 후 메인페이지로 이동
+        return "/"; //회원가입 완료 후 메인페이지로 이동
     }
 
     //로그인 실패 시
